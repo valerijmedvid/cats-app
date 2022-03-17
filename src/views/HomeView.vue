@@ -1,15 +1,9 @@
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <h1>Recent articles</h1>
 </template>
 
 <script lang="ts">
-import TheWelcome from "@/components/TheWelcome.vue"
-
 export default {
-  components: { TheWelcome },
+  components: {},
 }
 </script>
-
-<style scoped></style>
