@@ -60,9 +60,3 @@
     </p>
   </article>
 </template>
-
-<script lang="ts">
-export default {
-  components: {},
-}
-</script>

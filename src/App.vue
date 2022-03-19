@@ -36,7 +36,7 @@ import { RouterLink, RouterView } from "vue-router"
             <RouterLink to="/about">About</RouterLink>
           </b-nav-item>
         </b-nav>
-        <a href="login" class="login pt-3 ml-auto">Log in -></a>
+        <RouterLink to="/login" class="login pt-3 ml-auto">Log in -></RouterLink>
       </nav>
     </div>
   </header>
