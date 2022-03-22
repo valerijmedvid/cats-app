@@ -15,17 +15,35 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import Client from "@/Client"
+import { store } from "@/store/store"
 
 export default defineComponent({
   data() {
     return {
-      username: "" as string,
-      password: "" as string,
+      username: "vili" as string,
+      password: "SuperCat11" as string,
     }
   },
   methods: {
-    login(): void {
-      console.log(this.username, this.password)
+    async login(): Promise<void> {
+      await Client.login(this.username, this.password)
+        .then(resp => {
+          store.commit("login", resp)
+
+          this.$notify({
+            title: "Success",
+            text: "You have successfully logged in!",
+            type: "success",
+          })
+        })
+        .catch(e => {
+          this.$notify({
+            title: "Error",
+            text: e,
+            type: "error",
+          })
+        })
     },
   },
 })

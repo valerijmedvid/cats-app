@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router"
-</script>
-
 <template>
   <header>
     <div class="container d-flex">
@@ -27,6 +23,7 @@ import { RouterLink, RouterView } from "vue-router"
           />
         </defs>
       </svg>
+
       <nav class="d-flex w-100 justify-content-between">
         <b-nav small class="pt-2">
           <b-nav-item>
@@ -36,7 +33,13 @@ import { RouterLink, RouterView } from "vue-router"
             <RouterLink to="/about">About</RouterLink>
           </b-nav-item>
         </b-nav>
-        <RouterLink to="/login" class="login pt-3 ml-auto">Log in -></RouterLink>
+        <RouterLink v-if="!isLogged" to="/login" class="login pt-3 ml-auto">Log in -></RouterLink>
+        <b-dropdown v-else variant="link" size="sm" toggle-class="text-decoration-none" class="pt-1">
+          <template #button-content>
+            <b-avatar text="Vili" />
+          </template>
+          <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+        </b-dropdown>
       </nav>
     </div>
   </header>
@@ -44,7 +47,34 @@ import { RouterLink, RouterView } from "vue-router"
   <main class="container pt-3">
     <RouterView />
   </main>
+
+  <notifications />
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue"
+import { RouterLink, RouterView } from "vue-router"
+import { store } from "./store/store"
+
+export default defineComponent({
+  components: { RouterLink, RouterView },
+  computed: {
+    isLogged() {
+      return store.getters.isLogged
+    },
+  },
+  methods: {
+    logout() {
+      store.commit("logout")
+      this.$notify({
+        title: "Success",
+        text: "You have successfully logged out!",
+        type: "success",
+      })
+    },
+  },
+})
+</script>
 
 <style lang="scss">
 $primary-color: #212529;
